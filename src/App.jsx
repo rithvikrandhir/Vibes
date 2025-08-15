@@ -901,8 +901,8 @@ function flowScores(ordered, genrePenalty){
   return scores.map(s => (s - min) / range);
 }
 
-const BLUE = "hsl(var(--chart-1))";
-const RED  = "hsl(var(--chart-5))";
+const BLUE = "hsl(15 23% 9%)";
+const RED  = "hsl(0 84% 60%)";
 
 export default function App(){
   const [allSongs] = useState(seedSongs.map((d,i)=>({...d, idx:i+1})));
@@ -911,6 +911,34 @@ export default function App(){
   const [startIdx, setStartIdx] = useState(0);
   const [orderForHeatmap, setOrderForHeatmap] = useState("manual");
   const [playlistLen, setPlaylistLen] = useState(20);
+  const [isDark, setIsDark] = useState(false);
+
+  // Initialize theme from localStorage or system preference
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+      document.documentElement.classList.add('dark');
+      setIsDark(true);
+    } else {
+      document.documentElement.classList.remove('dark');
+      setIsDark(false);
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = !isDark;
+    setIsDark(newTheme);
+    
+    if (newTheme) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  };
 
   const suggested = useMemo(() => {
     if (!points.length) return [];
@@ -980,18 +1008,11 @@ export default function App(){
           <Button 
             variant="outline" 
             size="icon" 
-            onClick={() => {
-              const isDark = document.documentElement.classList.toggle('dark');
-              // Update button text based on current theme
-              const button = document.querySelector('#theme-toggle');
-              if (button) {
-                button.textContent = isDark ? '☀️' : '🌙';
-              }
-            }}
+            onClick={toggleTheme}
             className="rounded-none"
-            id="theme-toggle"
+            title={isDark ? "Switch to light mode" : "Switch to dark mode"}
           >
-            🌙
+            {isDark ? '☀️' : '🌙'}
           </Button>
         </div>
 
