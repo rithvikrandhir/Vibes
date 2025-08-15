@@ -1099,24 +1099,20 @@ export default function App(){
           {/* Color Legend - Moved outside chart container */}
           <div className="flex flex-wrap gap-4 text-sm mb-4">
             <div className="flex items-center gap-2">
-              <div className="w-4 h-4 rounded-full bg-red-500"></div>
-              <span className="text-muted-foreground">Start Track</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-4 h-4 rounded-full bg-blue-500"></div>
-              <span className="text-muted-foreground">Low Energy</span>
+              <div className="w-4 h-4 rounded-full bg-yellow-500"></div>
+              <span className="text-muted-foreground">Mellow (Yellow)</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-4 h-4 rounded-full bg-green-500"></div>
-              <span className="text-muted-foreground">Medium Energy</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-4 h-4 rounded-full bg-yellow-500"></div>
-              <span className="text-muted-foreground">High Energy</span>
+              <span className="text-muted-foreground">Groovy (Green)</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-4 h-4 rounded-full bg-purple-500"></div>
-              <span className="text-muted-foreground">Mood: Sad → Happy</span>
+              <span className="text-muted-foreground">Party Mode (Purple)</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-4 h-4 rounded-full bg-red-500"></div>
+              <span className="text-muted-foreground">Aggressive (Red)</span>
             </div>
           </div>
 
