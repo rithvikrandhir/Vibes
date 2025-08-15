@@ -1083,9 +1083,9 @@ export default function App(){
             <ResponsiveContainer>
               <ScatterChart>
                 <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
-                <XAxis type="number" dataKey="energy" domain={[0,100]} stroke="var(--muted-foreground)" />
+                <XAxis type="number" dataKey="order" domain={[1, playlistLen]} stroke="var(--muted-foreground)" />
                 <YAxis type="number" dataKey="mood" domain={[0,100]} stroke="var(--muted-foreground)" />
-                <ZAxis type="number" dataKey="order" range={[60,200]} />
+                <ZAxis type="number" dataKey="energy" range={[60,200]} />
                 <Tooltip content={({ active, payload }) => {
                   if (!active || !payload?.length) return null;
                   const p = payload[0].payload;
@@ -1094,29 +1094,29 @@ export default function App(){
                 <Scatter data={vizData}>{vizData.map((d,i)=>(<Cell key={i} fill={d.color}/>))}</Scatter>
               </ScatterChart>
             </ResponsiveContainer>
-            
-            {/* Color Legend */}
-            <div className="mt-4 flex flex-wrap gap-4 text-sm relative z-10">
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 rounded-full bg-red-500"></div>
-                <span className="text-muted-foreground">Start Track</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 rounded-full bg-blue-500"></div>
-                <span className="text-muted-foreground">Low Energy</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 rounded-full bg-green-500"></div>
-                <span className="text-muted-foreground">Medium Energy</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 rounded-full bg-yellow-500"></div>
-                <span className="text-muted-foreground">High Energy</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 rounded-full bg-purple-500"></div>
-                <span className="text-muted-foreground">Mood: Sad → Happy</span>
-              </div>
+          </div>
+          
+          {/* Color Legend - Moved outside chart container */}
+          <div className="flex flex-wrap gap-4 text-sm mb-4">
+            <div className="flex items-center gap-2">
+              <div className="w-4 h-4 rounded-full bg-red-500"></div>
+              <span className="text-muted-foreground">Start Track</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-4 h-4 rounded-full bg-blue-500"></div>
+              <span className="text-muted-foreground">Low Energy</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-4 h-4 rounded-full bg-green-500"></div>
+              <span className="text-muted-foreground">Medium Energy</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-4 h-4 rounded-full bg-yellow-500"></div>
+              <span className="text-muted-foreground">High Energy</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-4 h-4 rounded-full bg-purple-500"></div>
+              <span className="text-muted-foreground">Mood: Sad → Happy</span>
             </div>
           </div>
 
