@@ -901,8 +901,15 @@ function flowScores(ordered, genrePenalty){
   return scores.map(s => (s - min) / range);
 }
 
-const BLUE = "var(--chart-1)";
-const RED  = "var(--chart-5)";
+// Dynamic color function based on mood and energy
+const getSongColor = (mood, energy) => {
+  // Create a vibrant color palette based on mood (hue) and energy (saturation/brightness)
+  const hue = (mood / 100) * 360; // Mood maps to hue (0-360)
+  const saturation = Math.max(60, (energy / 100) * 80 + 20); // Energy maps to saturation (20-100)
+  const lightness = Math.max(30, (energy / 100) * 40 + 30); // Energy also affects brightness (30-70)
+  
+  return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+};
 
 export default function App(){
   const [allSongs] = useState(seedSongs.map((d,i)=>({...d, idx:i+1})));
@@ -959,11 +966,32 @@ export default function App(){
 
   const heatColors = useMemo(()=>{
     const scores = flowScores(orderedForHeat, genrePenalty);
-    const map = {}; orderedForHeat.forEach((d,i)=>{ map[`${d.title}|${d.artist}`] = lerpHex(BLUE, RED, scores[i]); });
+    const map = {}; 
+    orderedForHeat.forEach((d,i)=>{ 
+      // Use vibrant colors based on flow scores - from cool blue to warm red
+      const score = scores[i];
+      if (score < 0.3) {
+        map[`${d.title}|${d.artist}`] = "#3b82f6"; // Cool blue for smooth transitions
+      } else if (score < 0.7) {
+        map[`${d.title}|${d.artist}`] = "#10b981"; // Green for medium flow
+      } else {
+        map[`${d.title}|${d.artist}`] = "#ef4444"; // Red for rough transitions
+      }
+    });
     return map;
   }, [orderedForHeat, genrePenalty]);
 
-  const vizData = useMemo(()=> manual.map(d => ({...d, color: heatColors[`${d.title}|${d.artist}`]})), [manual, heatColors]);
+  const vizData = useMemo(()=> {
+    const data = orderForHeatmap === 'manual' ? manual : suggested;
+    return data.slice(0, playlistLen).map((song, i) => ({
+      energy: song.energy,
+      mood: song.mood,
+      order: i + 1,
+      title: song.title,
+      artist: song.artist,
+      color: i === startIdx ? "#ff6b6b" : getSongColor(song.mood, song.energy) // Start song gets special red color
+    }));
+  }, [manual, suggested, orderForHeatmap, playlistLen, startIdx]);
 
   const exportOrder = () => {
     let list;
@@ -1066,6 +1094,30 @@ export default function App(){
                 <Scatter data={vizData}>{vizData.map((d,i)=>(<Cell key={i} fill={d.color}/>))}</Scatter>
               </ScatterChart>
             </ResponsiveContainer>
+            
+            {/* Color Legend */}
+            <div className="mt-4 flex flex-wrap gap-4 text-sm">
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 rounded-full bg-red-500"></div>
+                <span className="text-muted-foreground">Start Track</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 rounded-full bg-blue-500"></div>
+                <span className="text-muted-foreground">Low Energy</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 rounded-full bg-green-500"></div>
+                <span className="text-muted-foreground">Medium Energy</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 rounded-full bg-yellow-500"></div>
+                <span className="text-muted-foreground">High Energy</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 rounded-full bg-purple-500"></div>
+                <span className="text-muted-foreground">Mood: Sad → Happy</span>
+              </div>
+            </div>
           </div>
 
           <Tabs defaultValue="order">
