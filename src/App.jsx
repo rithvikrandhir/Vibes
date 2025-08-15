@@ -993,7 +993,7 @@ export default function App(){
       order: i + 1,
       title: song.title,
       artist: song.artist,
-      color: i === startIdx ? "#ff6b6b" : getSongColor(song.mood, song.energy) // Start song gets special red color
+      color: getSongColor(song.mood, song.energy) // All songs get colors based on their energy/mood
     }));
   }, [manual, suggested, orderForHeatmap, playlistLen, startIdx]);
 
