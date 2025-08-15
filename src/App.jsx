@@ -1096,7 +1096,7 @@ export default function App(){
             </ResponsiveContainer>
             
             {/* Color Legend */}
-            <div className="mt-4 flex flex-wrap gap-4 text-sm">
+            <div className="mt-4 flex flex-wrap gap-4 text-sm relative z-10">
               <div className="flex items-center gap-2">
                 <div className="w-4 h-4 rounded-full bg-red-500"></div>
                 <span className="text-muted-foreground">Start Track</span>
@@ -1143,7 +1143,7 @@ export default function App(){
               </div>
               {manualOptimized.map((p,i)=>(
                 <div key={i} className="flex justify-between items-center bg-accent/10 p-2 mb-1 rounded-none shadow-sm border border-accent/20 hover:shadow-md hover:bg-accent/20 transition-all duration-200">
-                  <div className="text-accent-foreground">{i+1}. {p.title} — {p.artist}</div>
+                  <div className="text-card-foreground">{i+1}. {p.title} — {p.artist}</div>
                   <div className="text-xs text-muted-foreground">{p.genre}</div>
                 </div>
               ))}
