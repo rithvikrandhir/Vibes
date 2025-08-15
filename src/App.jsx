@@ -1,5 +1,5 @@
 
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ZAxis, ResponsiveContainer, Cell } from "recharts";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
@@ -999,10 +999,10 @@ export default function App(){
   };
 
   return (
-    <div className="min-h-screen p-6 md:p-10 bg-background">
+    <div className="min-h-screen p-6 md:p-10 bg-white dark:bg-gray-900">
       <div className="mx-auto max-w-7xl grid gap-6">
         <div className="flex justify-between items-center">
-          <h1 className="text-3xl font-semibold tracking-tight text-foreground">
+          <h1 className="text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">
             Playlist Mapper – Embedded Data + Shuffle
           </h1>
           <Button 
@@ -1016,21 +1016,21 @@ export default function App(){
           </Button>
         </div>
 
-        <div className="shadow-lg border border-border p-4 md:p-6 grid gap-6 bg-card rounded-none">
+        <div className="shadow-lg border border-gray-200 dark:border-gray-700 p-4 md:p-6 grid gap-6 bg-white dark:bg-gray-800 rounded-none">
           <div className="grid grid-cols-1 md:grid-cols-6 gap-4 items-end">
             <div>
-              <label className="text-sm text-muted-foreground">Genre penalty: {genrePenalty}</label>
+              <label className="text-sm text-gray-600 dark:text-gray-300">Genre penalty: {genrePenalty}</label>
               <Slider value={[genrePenalty]} min={0} max={20} step={1} onValueChange={(v)=>setGenrePenalty(v[0])} />
-              <div className="text-xs text-muted-foreground mt-1">
+              <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                 Higher = smoother genre transitions
               </div>
             </div>
             <div>
-              <label className="text-sm text-muted-foreground">Start track</label>
+              <label className="text-sm text-gray-600 dark:text-gray-300">Start track</label>
               <Input type="number" min={1} max={points.length} value={startIdx+1} onChange={(e)=>setStartIdx(clamp(Number(e.target.value)-1,0,points.length-1))} />
             </div>
             <div>
-              <label className="text-sm text-muted-foreground">Heatmap evaluates</label>
+              <label className="text-sm text-gray-600 dark:text-gray-300">Heatmap evaluates</label>
               <Select value={orderForHeatmap} onValueChange={setOrderForHeatmap}>
                 <SelectTrigger><SelectValue/></SelectTrigger>
                 <SelectContent>
@@ -1040,9 +1040,9 @@ export default function App(){
               </Select>
             </div>
             <div>
-              <label className="text-sm text-muted-foreground">Playlist length</label>
+              <label className="text-sm text-gray-600 dark:text-gray-300">Playlist length</label>
               <Input type="number" min={1} max={allSongs.length} value={playlistLen} onChange={(e)=>setPlaylistLen(clamp(Number(e.target.value),1,allSongs.length))} />
-              <div className="text-xs text-muted-foreground mt-1">Showing {Math.min(points.length, playlistLen)} of {points.length} songs</div>
+              <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">Showing {Math.min(points.length, playlistLen)} of {points.length} songs</div>
             </div>
             <Button onClick={shuffleN}><Shuffle className="mr-2 h-4 w-4"/>Shuffle N</Button>
             <div className="flex gap-2">
@@ -1054,14 +1054,14 @@ export default function App(){
           <div className="h-[420px] w-full">
             <ResponsiveContainer>
               <ScatterChart>
-                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                <XAxis type="number" dataKey="energy" domain={[0,100]} stroke="hsl(var(--muted-foreground))" />
-                <YAxis type="number" dataKey="mood" domain={[0,100]} stroke="hsl(var(--muted-foreground))" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                <XAxis type="number" dataKey="energy" domain={[0,100]} stroke="#6b7280" />
+                <YAxis type="number" dataKey="mood" domain={[0,100]} stroke="#6b7280" />
                 <ZAxis type="number" dataKey="order" range={[60,200]} />
                 <Tooltip content={({ active, payload }) => {
                   if (!active || !payload?.length) return null;
                   const p = payload[0].payload;
-                  return <div className="bg-popover text-popover-foreground p-2 rounded-none border border-border shadow-md">{p.order}. {p.title} — {p.artist}</div>;
+                  return <div className="bg-white dark:bg-gray-800 text-gray-900 dark:text-white p-2 rounded-none border border-gray-200 dark:border-gray-600 shadow-md">{p.order}. {p.title} — {p.artist}</div>;
                 }} />
                 <Scatter data={vizData}>{vizData.map((d,i)=>(<Cell key={i} fill={d.color}/>))}</Scatter>
               </ScatterChart>
@@ -1076,8 +1076,8 @@ export default function App(){
             </TabsList>
             <TabsContent value="order" className="mt-4">
               {manual.map((p,i)=>(
-                <div key={i} className="flex justify-between items-center bg-card p-2 mb-1 rounded-none shadow-sm border border-border hover:shadow-md transition-shadow duration-200">
-                  <div className="text-card-foreground">{i+1}. {p.title} — {p.artist}</div>
+                <div key={i} className="flex justify-between items-center bg-white dark:bg-gray-800 p-2 mb-1 rounded-none shadow-sm border border-gray-200 dark:border-gray-600 hover:shadow-md transition-shadow duration-200">
+                  <div className="text-gray-900 dark:text-white">{i+1}. {p.title} — {p.artist}</div>
                   <div className="flex gap-1">
                     <Button size="icon" onClick={()=>move(i,-1)}><ArrowUp className="h-4 w-4"/></Button>
                     <Button size="icon" onClick={()=>move(i,1)}><ArrowDown className="h-4 w-4"/></Button>
@@ -1086,19 +1086,19 @@ export default function App(){
               ))}
             </TabsContent>
             <TabsContent value="optimized" className="mt-4">
-              <div className="mb-2 text-sm text-muted-foreground">
+              <div className="mb-2 text-sm text-gray-600 dark:text-gray-300">
                 Order optimized for smooth genre transitions (penalty: {genrePenalty})
               </div>
               {manualOptimized.map((p,i)=>(
-                <div key={i} className="flex justify-between items-center bg-accent/10 p-2 mb-1 rounded-none shadow-sm border border-accent/20 hover:shadow-md hover:bg-accent/20 transition-all duration-200">
-                  <div className="text-accent-foreground">{i+1}. {p.title} — {p.artist}</div>
-                  <div className="text-xs text-muted-foreground">{p.genre}</div>
+                <div key={i} className="flex justify-between items-center bg-blue-50 dark:bg-blue-900/20 p-2 mb-1 rounded-none shadow-sm border border-blue-200 dark:border-blue-700 hover:shadow-md hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all duration-200">
+                  <div className="text-blue-900 dark:text-blue-100">{i+1}. {p.title} — {p.artist}</div>
+                  <div className="text-xs text-gray-500 dark:text-gray-400">{p.genre}</div>
                 </div>
               ))}
             </TabsContent>
             <TabsContent value="flow" className="mt-4">
               <ol className="space-y-1">
-                {suggested.map((s)=>(<li key={s.title} className="text-card-foreground">{s.order}. {s.title} — {s.artist}</li>))}
+                {suggested.map((s)=>(<li key={s.title} className="text-gray-900 dark:text-white">{s.order}. {s.title} — {s.artist}</li>))}
               </ol>
             </TabsContent>
           </Tabs>
