@@ -901,14 +901,18 @@ function flowScores(ordered, genrePenalty){
   return scores.map(s => (s - min) / range);
 }
 
-// Dynamic color function based on mood and energy
+// Dynamic color function based on mood and energy buckets
 const getSongColor = (mood, energy) => {
-  // Create a vibrant color palette based on mood (hue) and energy (saturation/brightness)
-  const hue = (mood / 100) * 360; // Mood maps to hue (0-360)
-  const saturation = Math.max(60, (energy / 100) * 80 + 20); // Energy maps to saturation (20-100)
-  const lightness = Math.max(30, (energy / 100) * 40 + 30); // Energy also affects brightness (30-70)
-  
-  return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+  // Assign colors based on energy/mood combinations
+  if (energy < 30) {
+    return "#eab308"; // Yellow - Mellow (low energy)
+  } else if (energy < 60) {
+    return "#22c55e"; // Green - Groovy (medium energy)
+  } else if (energy < 80) {
+    return "#a855f7"; // Purple - Party Mode (high energy)
+  } else {
+    return "#ef4444"; // Red - Aggressive (very high energy)
+  }
 };
 
 export default function App(){
@@ -1100,19 +1104,19 @@ export default function App(){
           <div className="flex flex-wrap gap-4 text-sm mb-4">
             <div className="flex items-center gap-2">
               <div className="w-4 h-4 rounded-full bg-yellow-500"></div>
-              <span className="text-muted-foreground">Mellow (Yellow)</span>
+              <span className="text-muted-foreground">Mellow</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-4 h-4 rounded-full bg-green-500"></div>
-              <span className="text-muted-foreground">Groovy (Green)</span>
+              <span className="text-muted-foreground">Groovy</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-4 h-4 rounded-full bg-purple-500"></div>
-              <span className="text-muted-foreground">Party Mode (Purple)</span>
+              <span className="text-muted-foreground">Party Mode</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-4 h-4 rounded-full bg-red-500"></div>
-              <span className="text-muted-foreground">Aggressive (Red)</span>
+              <span className="text-muted-foreground">Aggressive</span>
             </div>
           </div>
 
