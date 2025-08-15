@@ -8,856 +8,157 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Download, RefreshCw, ArrowUp, ArrowDown, Shuffle } from "lucide-react";
 
-// --- Embedded seedSongs from your CSV ---
-const seedSongs = [
-  {
-    "title": "Black&Blue",
-    "artist": "Vince Staples",
-    "genre": "Hip-Hop",
-    "energy": 65,
-    "mood": 40
-  },
-  {
-    "title": "So Far Ahead",
-    "artist": "Clipse, Pharrell Williams, Pusha T, Malice",
-    "genre": "Hip-Hop",
-    "energy": 70,
-    "mood": 50
-  },
-  {
-    "title": "Sweet My Ear",
-    "artist": "Jembaa Groove, K.O.G",
-    "genre": "Afrobeat",
-    "energy": 60,
-    "mood": 70
-  },
-  {
-    "title": "Hoe-nouns (feat. Thundercat & reggie)",
-    "artist": "Smino, Thundercat, reggie",
-    "genre": "Hip-Hop/Neo-Soul",
-    "energy": 65,
-    "mood": 60
-  },
-  {
-    "title": "WAIT",
-    "artist": "Doechii",
-    "genre": "Hip-Hop",
-    "energy": 75,
-    "mood": 65
-  },
-  {
-    "title": "What You Need (feat. Charlotte Day Wilson)",
-    "artist": "KAYTRANADA, Charlotte Day Wilson",
-    "genre": "House/R&B",
-    "energy": 60,
-    "mood": 75
-  },
-  {
-    "title": "Lost My Treble Long Ago",
-    "artist": "Vulfpeck",
-    "genre": "Funk",
-    "energy": 55,
-    "mood": 70
-  },
-  {
-    "title": "Days To Come",
-    "artist": "Bonobo, Bajka",
-    "genre": "Downtempo",
-    "energy": 40,
-    "mood": 60
-  },
-  {
-    "title": "Shadows",
-    "artist": "Bonobo, Jordan Rakei",
-    "genre": "Electronic/Soul",
-    "energy": 45,
-    "mood": 55
-  },
-  {
-    "title": "1990 (Interlude)",
-    "artist": "G Yamazawa",
-    "genre": "Hip-Hop/Spoken Word",
-    "energy": 35,
-    "mood": 45
-  },
-  {
-    "title": "Monolith",
-    "artist": "Mandrake Handshake",
-    "genre": "Psychedelic Rock",
-    "energy": 60,
-    "mood": 50
-  },
-  {
-    "title": "Input Source Select - Vinticious Version",
-    "artist": "De Staat",
-    "genre": "Alternative Rock",
-    "energy": 65,
-    "mood": 50
-  },
-  {
-    "title": "Oh No",
-    "artist": "Biig Piig",
-    "genre": "Alt-Pop",
-    "energy": 50,
-    "mood": 55
-  },
-  {
-    "title": "WEIGHT OFF",
-    "artist": "KAYTRANADA, BADBADNOTGOOD",
-    "genre": "Electronic/Hip-Hop",
-    "energy": 65,
-    "mood": 60
-  },
-  {
-    "title": "So Cool",
-    "artist": "Reuben James",
-    "genre": "R&B/Jazz",
-    "energy": 50,
-    "mood": 70
-  },
-  {
-    "title": "Idol Eyes",
-    "artist": "Common Saints",
-    "genre": "Psychedelic Soul",
-    "energy": 55,
-    "mood": 65
-  },
-  {
-    "title": "Temptations",
-    "artist": "Jitwam",
-    "genre": "Funk",
-    "energy": 60,
-    "mood": 70
-  },
-  {
-    "title": "Prone",
-    "artist": "Masego",
-    "genre": "R&B",
-    "energy": 50,
-    "mood": 60
-  },
-  {
-    "title": "D'Evils",
-    "artist": "SiR",
-    "genre": "R&B",
-    "energy": 45,
-    "mood": 40
-  },
-  {
-    "title": "Use Me",
-    "artist": "Bill Withers",
-    "genre": "Soul",
-    "energy": 50,
-    "mood": 70
-  },
-  {
-    "title": "Make No Sound In The Digital Forest",
-    "artist": "Incubus",
-    "genre": "Alternative Rock",
-    "energy": 60,
-    "mood": 45
-  },
-  {
-    "title": "Feet Don't Fail Me",
-    "artist": "Queens of the Stone Age",
-    "genre": "Rock",
-    "energy": 70,
-    "mood": 55
-  },
-  {
-    "title": "Swangin'",
-    "artist": "blackwave.",
-    "genre": "Hip-Hop",
-    "energy": 65,
-    "mood": 60
-  },
-  {
-    "title": "Lost in Paradise (\"Jujutsu Kaisen\")",
-    "artist": "Studio Yuraki",
-    "genre": "J-Pop/Anime",
-    "energy": 75,
-    "mood": 70
-  },
-  {
-    "title": "Demons",
-    "artist": "The Pineapple Thief",
-    "genre": "Progressive Rock",
-    "energy": 60,
-    "mood": 40
-  },
-  {
-    "title": "Deadcrush",
-    "artist": "alt-J",
-    "genre": "Indie Rock",
-    "energy": 55,
-    "mood": 50
-  },
-  {
-    "title": "Fitzpleasure",
-    "artist": "alt-J",
-    "genre": "Indie Rock",
-    "energy": 60,
-    "mood": 45
-  },
-  {
-    "title": "Cherry",
-    "artist": "Jungle",
-    "genre": "Funk",
-    "energy": 65,
-    "mood": 70
-  },
-  {
-    "title": "Bookoo Bread Co",
-    "artist": "Scallops Hotel",
-    "genre": "Hip-Hop",
-    "energy": 55,
-    "mood": 50
-  },
-  {
-    "title": "Make It Wit Chu",
-    "artist": "Queens of the Stone Age",
-    "genre": "Rock",
-    "energy": 65,
-    "mood": 60
-  },
-  {
-    "title": "Daffodils (feat. Kevin Parker)",
-    "artist": "Mark Ronson, Kevin Parker",
-    "genre": "Disco/Funk",
-    "energy": 70,
-    "mood": 75
-  },
-  {
-    "title": "Turnin' Me Up",
-    "artist": "BJ The Chicago Kid",
-    "genre": "R&B",
-    "energy": 55,
-    "mood": 65
-  },
-  {
-    "title": "Power Trip (feat. Miguel)",
-    "artist": "J. Cole, Miguel",
-    "genre": "Hip-Hop/R&B",
-    "energy": 65,
-    "mood": 65
-  },
-  {
-    "title": "NO HALO",
-    "artist": "BROCKHAMPTON",
-    "genre": "Hip-Hop",
-    "energy": 65,
-    "mood": 55
-  },
-  {
-    "title": "welcome to chili's",
-    "artist": "99 Neighbors",
-    "genre": "Hip-Hop",
-    "energy": 60,
-    "mood": 55
-  },
-  {
-    "title": "К окраинам",
-    "artist": "Рушана",
-    "genre": "Russian Indie",
-    "energy": 50,
-    "mood": 50
-  },
-  {
-    "title": "Jiggy",
-    "artist": "Victor Niglio, Mr. Man",
-    "genre": "Dance",
-    "energy": 80,
-    "mood": 65
-  },
-  {
-    "title": "El Melouk",
-    "artist": "Ahmed Saad, Zenba, Double Zuksh",
-    "genre": "Arabic Pop",
-    "energy": 70,
-    "mood": 60
-  },
-  {
-    "title": "Ensalada (feat. Anderson .Paak)",
-    "artist": "Freddie Gibbs, The Alchemist, Anderson .Paak",
-    "genre": "Hip-Hop",
-    "energy": 70,
-    "mood": 60
-  },
-  {
-    "title": "Chains & Whips",
-    "artist": "Clipse, Kendrick Lamar",
-    "genre": "Hip-Hop",
-    "energy": 70,
-    "mood": 50
-  },
-  {
-    "title": "So Be It",
-    "artist": "Clipse, Pusha T, Malice",
-    "genre": "Hip-Hop",
-    "energy": 65,
-    "mood": 50
-  },
-  {
-    "title": "Intergalactic Janet",
-    "artist": "Ley Soul",
-    "genre": "Funk",
-    "energy": 65,
-    "mood": 75
-  },
-  {
-    "title": "Didn't Cha Know",
-    "artist": "Erykah Badu",
-    "genre": "Neo-Soul",
-    "energy": 50,
-    "mood": 65
-  },
-  {
-    "title": "Selene",
-    "artist": "Night Tapes",
-    "genre": "Dream Pop",
-    "energy": 45,
-    "mood": 60
-  },
-  {
-    "title": "Humans",
-    "artist": "Night Tapes",
-    "genre": "Dream Pop",
-    "energy": 50,
-    "mood": 55
-  },
-  {
-    "title": "Mahal",
-    "artist": "Glass Beams",
-    "genre": "Psychedelic Jazz",
-    "energy": 55,
-    "mood": 65
-  },
-  {
-    "title": "Not Like Us",
-    "artist": "Kendrick Lamar",
-    "genre": "Hip-Hop",
-    "energy": 80,
-    "mood": 55
-  },
-  {
-    "title": "Cilvia Demo",
-    "artist": "Isaiah Rashad",
-    "genre": "Hip-Hop",
-    "energy": 55,
-    "mood": 50
-  },
-  {
-    "title": "Trust",
-    "artist": "Jordan Rakei",
-    "genre": "Soul",
-    "energy": 50,
-    "mood": 65
-  },
-  {
-    "title": "KARMA",
-    "artist": "SiR, Isaiah Rashad",
-    "genre": "Hip-Hop",
-    "energy": 60,
-    "mood": 55
-  },
-  {
-    "title": "Envious",
-    "artist": "SAULT",
-    "genre": "R&B",
-    "energy": 60,
-    "mood": 65
-  },
-  {
-    "title": "Self",
-    "artist": "Cleo Sol",
-    "genre": "Soul",
-    "energy": 45,
-    "mood": 70
-  },
-  {
-    "title": "Wildfires",
-    "artist": "SAULT",
-    "genre": "R&B",
-    "energy": 55,
-    "mood": 65
-  },
-  {
-    "title": "Summer Sun",
-    "artist": "Common Saints",
-    "genre": "Psychedelic",
-    "energy": 50,
-    "mood": 60
-  },
-  {
-    "title": "Nightrider",
-    "artist": "Tom Misch, Yussef Dayes",
-    "genre": "Jazz Fusion",
-    "energy": 55,
-    "mood": 60
-  },
-  {
-    "title": "Lonely Soul",
-    "artist": "UNKLE, Richard Ashcroft",
-    "genre": "Trip-Hop",
-    "energy": 50,
-    "mood": 40
-  },
-  {
-    "title": "Smooth Sailing",
-    "artist": "Queens of the Stone Age",
-    "genre": "Rock",
-    "energy": 60,
-    "mood": 55
-  },
-  {
-    "title": "Ditch",
-    "artist": "Empara Mi",
-    "genre": "Alt-Pop",
-    "energy": 50,
-    "mood": 45
-  },
-  {
-    "title": "Forever Lost",
-    "artist": "The Polish Ambassador, Lafa Taylor",
-    "genre": "Electronic Hip-Hop",
-    "energy": 60,
-    "mood": 60
-  },
-  {
-    "title": "Brnt",
-    "artist": "Magic City Hippies, The EMEFE Horns",
-    "genre": "Funk",
-    "energy": 65,
-    "mood": 70
-  },
-  {
-    "title": "Destruction",
-    "artist": "Joywave",
-    "genre": "Indie Rock",
-    "energy": 65,
-    "mood": 50
-  },
-  {
-    "title": "Garden",
-    "artist": "Papadosio",
-    "genre": "Jam Band",
-    "energy": 55,
-    "mood": 60
-  },
-  {
-    "title": "Chapter 7 (feat. Ty)",
-    "artist": "Ezra Collective, Ty",
-    "genre": "Jazz/Funk",
-    "energy": 60,
-    "mood": 65
-  },
-  {
-    "title": "BDE Bonus",
-    "artist": "Mac Miller",
-    "genre": "Hip-Hop",
-    "energy": 60,
-    "mood": 55
-  },
-  {
-    "title": "All Apologies",
-    "artist": "JMSN",
-    "genre": "R&B",
-    "energy": 45,
-    "mood": 50
-  },
-  {
-    "title": "Cherry Pop",
-    "artist": "JMSN",
-    "genre": "R&B",
-    "energy": 50,
-    "mood": 60
-  },
-  {
-    "title": "Talk Is Cheap",
-    "artist": "JMSN",
-    "genre": "R&B",
-    "energy": 50,
-    "mood": 45
-  },
-  {
-    "title": "Be Sweet",
-    "artist": "Japanese Breakfast",
-    "genre": "Indie Pop",
-    "energy": 60,
-    "mood": 75
-  },
-  {
-    "title": "Clouds & Cream",
-    "artist": "Sticky Fingers",
-    "genre": "Indie Rock",
-    "energy": 60,
-    "mood": 65
-  },
-  {
-    "title": "The Cold Wind",
-    "artist": "Greta Van Fleet",
-    "genre": "Rock",
-    "energy": 70,
-    "mood": 50
-  },
-  {
-    "title": "Angels / Your Love",
-    "artist": "Mr Jukes, BJ The Chicago Kid",
-    "genre": "Funk",
-    "energy": 60,
-    "mood": 70
-  },
-  {
-    "title": "Your Woman",
-    "artist": "White Town",
-    "genre": "Synth-Pop",
-    "energy": 55,
-    "mood": 55
-  },
-  {
-    "title": "Discard Your Fear",
-    "artist": "Riverside",
-    "genre": "Progressive Rock",
-    "energy": 65,
-    "mood": 50
-  },
-  {
-    "title": "The Final Thing On My Mind",
-    "artist": "The Pineapple Thief",
-    "genre": "Progressive Rock",
-    "energy": 60,
-    "mood": 45
-  },
-  {
-    "title": "Oh Lorraine",
-    "artist": "The Temperance Movement",
-    "genre": "Blues Rock",
-    "energy": 60,
-    "mood": 55
-  },
-  {
-    "title": "Ariah Being",
-    "artist": "Kiev",
-    "genre": "Indie Rock",
-    "energy": 55,
-    "mood": 55
-  },
-  {
-    "title": "Cakey",
-    "artist": "Kyle Gass Band",
-    "genre": "Rock",
-    "energy": 65,
-    "mood": 60
-  },
-  {
-    "title": "Telepathic",
-    "artist": "Rose Hill Drive",
-    "genre": "Rock",
-    "energy": 60,
-    "mood": 55
-  },
-  {
-    "title": "Ribbon On A Branch",
-    "artist": "Younger Brother",
-    "genre": "Psytrance",
-    "energy": 50,
-    "mood": 60
-  },
-  {
-    "title": "Gold",
-    "artist": "Chet Faker",
-    "genre": "Electro-Soul",
-    "energy": 50,
-    "mood": 60
-  },
-  {
-    "title": "Undertow",
-    "artist": "Chroma Key",
-    "genre": "Ambient",
-    "energy": 45,
-    "mood": 40
-  },
-  {
-    "title": "The Chain - 2004 Remaster",
-    "artist": "Fleetwood Mac",
-    "genre": "Classic Rock",
-    "energy": 65,
-    "mood": 60
-  },
-  {
-    "title": "Wolves And Doors",
-    "artist": "Finger Eleven",
-    "genre": "Alternative Rock",
-    "energy": 65,
-    "mood": 50
-  },
-  {
-    "title": "Hostage",
-    "artist": "Nothing But Thieves",
-    "genre": "Alternative Rock",
-    "energy": 70,
-    "mood": 40
-  },
-  {
-    "title": "Roundabout - 2003 Remaster",
-    "artist": "Yes",
-    "genre": "Progressive Rock",
-    "energy": 70,
-    "mood": 60
-  },
-  {
-    "title": "Make Luv - Live",
-    "artist": "Room 5, Oliver Cheatham",
-    "genre": "Disco",
-    "energy": 70,
-    "mood": 75
-  },
-  {
-    "title": "Hailin From The Edge",
-    "artist": "Apparat",
-    "genre": "Electronic",
-    "energy": 55,
-    "mood": 45
-  },
-  {
-    "title": "Nobody Speak (feat. Run the Jewels)",
-    "artist": "DJ Shadow, Run The Jewels",
-    "genre": "Hip-Hop",
-    "energy": 70,
-    "mood": 50
-  },
-  {
-    "title": "Out of the Black",
-    "artist": "Royal Blood",
-    "genre": "Rock",
-    "energy": 70,
-    "mood": 45
-  },
-  {
-    "title": "Days Are Forgotten",
-    "artist": "Kasabian",
-    "genre": "Rock",
-    "energy": 65,
-    "mood": 50
-  },
-  {
-    "title": "Processed Beats",
-    "artist": "Kasabian",
-    "genre": "Rock",
-    "energy": 60,
-    "mood": 55
-  },
-  {
-    "title": "Short Change Hero",
-    "artist": "The Heavy",
-    "genre": "Blues Rock",
-    "energy": 55,
-    "mood": 45
-  },
-  {
-    "title": "Move With The Season",
-    "artist": "Temples",
-    "genre": "Psychedelic Rock",
-    "energy": 60,
-    "mood": 55
-  },
-  {
-    "title": "New Day",
-    "artist": "Karnivool",
-    "genre": "Progressive Metal",
-    "energy": 70,
-    "mood": 40
-  },
-  {
-    "title": "Have A Cigar - 2011 Remastered Version",
-    "artist": "Pink Floyd",
-    "genre": "Classic Rock",
-    "energy": 65,
-    "mood": 50
-  },
-  {
-    "title": "Fragments of Time (feat. Todd Edwards)",
-    "artist": "Daft Punk, Todd Edwards",
-    "genre": "House/Funk",
-    "energy": 70,
-    "mood": 75
-  },
-  {
-    "title": "Little Black Submarines - Radio Edit",
-    "artist": "The Black Keys",
-    "genre": "Blues Rock",
-    "energy": 60,
-    "mood": 40
-  },
-  {
-    "title": "Alors on danse - Radio Edit",
-    "artist": "Stromae",
-    "genre": "Dance/Pop",
-    "energy": 70,
-    "mood": 70
-  },
-  {
-    "title": "Makeba",
-    "artist": "Jain",
-    "genre": "World Pop",
-    "energy": 65,
-    "mood": 75
-  },
-  {
-    "title": "Aquemini",
-    "artist": "Outkast",
-    "genre": "Hip-Hop",
-    "energy": 65,
-    "mood": 60
-  },
-  {
-    "title": "Get Ur Freak On",
-    "artist": "Missy Elliott",
-    "genre": "Hip-Hop",
-    "energy": 80,
-    "mood": 65
-  },
-  {
-    "title": "Milkshake",
-    "artist": "Kelis",
-    "genre": "R&B/Pop",
-    "energy": 70,
-    "mood": 65
-  },
-  {
-    "title": "The Next Episode",
-    "artist": "Dr. Dre, Snoop Dogg",
-    "genre": "Hip-Hop",
-    "energy": 75,
-    "mood": 60
-  },
-  {
-    "title": "Lauren",
-    "artist": "Men I Trust",
-    "genre": "Dream Pop",
-    "energy": 45,
-    "mood": 55
-  },
-  {
-    "title": "Runaway - Remastered 2006",
-    "artist": "Jamiroquai",
-    "genre": "Acid Jazz",
-    "energy": 65,
-    "mood": 75
-  },
-  {
-    "title": "Cosmic Girl - Remastered 2013",
-    "artist": "Jamiroquai",
-    "genre": "Funk",
-    "energy": 70,
-    "mood": 75
-  },
-  {
-    "title": "Alright",
-    "artist": "Kendrick Lamar",
-    "genre": "Hip-Hop",
-    "energy": 70,
-    "mood": 65
-  },
-  {
-    "title": "The Way You Move (feat. Sleepy Brown)",
-    "artist": "Outkast, Sleepy Brown",
-    "genre": "Funk/Hip-Hop",
-    "energy": 70,
-    "mood": 70
-  },
-  {
-    "title": "Hey Ya!",
-    "artist": "Outkast",
-    "genre": "Pop/Hip-Hop",
-    "energy": 80,
-    "mood": 80
-  },
-  {
-    "title": "Baby Got Back",
-    "artist": "Sir Mix-A-Lot",
-    "genre": "Hip-Hop",
-    "energy": 75,
-    "mood": 70
-  },
-  {
-    "title": "Money Trees",
-    "artist": "Kendrick Lamar, Jay Rock",
-    "genre": "Hip-Hop",
-    "energy": 65,
-    "mood": 55
-  },
-  {
-    "title": "i",
-    "artist": "Kendrick Lamar",
-    "genre": "Hip-Hop",
-    "energy": 65,
-    "mood": 70
-  },
-  {
-    "title": "Bitch, Don't Kill My Vibe",
-    "artist": "Kendrick Lamar",
-    "genre": "Hip-Hop",
-    "energy": 60,
-    "mood": 55
-  },
-  {
-    "title": "Them Changes",
-    "artist": "Thundercat",
-    "genre": "Funk",
-    "energy": 60,
-    "mood": 65
-  },
-  {
-    "title": "Lost In Yesterday",
-    "artist": "Tame Impala",
-    "genre": "Psychedelic Pop",
-    "energy": 65,
-    "mood": 60
-  },
-  {
-    "title": "Feels Like Summer",
-    "artist": "Childish Gambino",
-    "genre": "R&B",
-    "energy": 60,
-    "mood": 60
-  },
-  {
-    "title": "The Seed (2.0)",
-    "artist": "The Roots, Cody Chesnutt",
-    "genre": "Hip-Hop",
-    "energy": 65,
-    "mood": 65
-  },
-  {
-    "title": "Tailwhip",
-    "artist": "Men I Trust",
-    "genre": "Dream Pop",
-    "energy": 50,
-    "mood": 60
-  },
-  {
-    "title": "Rebirth Of Slick (Cool Like Dat)",
-    "artist": "Digable Planets",
-    "genre": "Jazz Rap",
-    "energy": 60,
-    "mood": 65
-  },
-  {
-    "title": "BULLFROG",
-    "artist": "Doechii",
-    "genre": "Hip-Hop",
-    "energy": 70,
-    "mood": 60
-  },
-  {
-    "title": "CATFISH",
-    "artist": "Doechii",
-    "genre": "Hip-Hop",
-    "energy": 70,
-    "mood": 55
-  }
-];
+// --- CSV Data Loading Function ---
+const loadSongData = () => {
+  // CSV data with categories
+  const csvData = `title,artist,genre,energy,mood,category
+Black&Blue,Vince Staples,Hip-Hop,65,40,heavy
+So Far Ahead,"Clipse, Pharrell Williams, Pusha T, Malice",Hip-Hop,70,50,heavy
+Sweet My Ear,"Jembaa Groove, K.O.G",Afrobeat,60,70,groovy
+Hoe-nouns (feat. Thundercat & reggie)","Smino, Thundercat, reggie",Hip-Hop/Neo-Soul,65,60,groovy
+WAIT,Doechii,Hip-Hop,75,65,party mode
+What You Need (feat. Charlotte Day Wilson),"KAYTRANADA, Charlotte Day Wilson",House/R&B,60,75,groovy
+Lost My Treble Long Ago,Vulfpeck,Funk,55,70,groovy
+Days To Come,"Bonobo, Bajka",Downtempo,40,60,mellow
+Shadows,"Bonobo, Jordan Rakei",Electronic/Soul,45,55,mellow
+1990 (Interlude),G Yamazawa,Hip-Hop/Spoken Word,35,45,mellow
+Monolith,Mandrake Handshake,Psychedelic Rock,60,50,heavy
+Input Source Select - Vinticious Version,De Staat,Alternative Rock,65,50,heavy
+Oh No,Biig Piig,Alt-Pop,50,55,mellow
+WEIGHT OFF,"KAYTRANADA, BADBADNOTGOOD",Electronic/Hip-Hop,65,60,groovy
+So Cool,Reuben James,R&B/Jazz,50,70,mellow
+Idol Eyes,Common Saints,Psychedelic Soul,55,65,groovy
+Temptations,Jitwam,Funk,60,70,groovy
+Prone,Masego,R&B,50,60,mellow
+D'Evils,SiR,R&B,45,40,heavy
+Use Me,Bill Withers,Soul,50,70,groovy
+Make No Sound In The Digital Forest,Incubus,Alternative Rock,60,45,heavy
+Feet Don't Fail Me,Queens of the Stone Age,Rock,70,55,heavy
+Swangin',blackwave.,Hip-Hop,65,60,groovy
+Lost in Paradise ("Jujutsu Kaisen"),Studio Yuraki,J-Pop/Anime,75,70,party mode
+Demons,The Pineapple Thief,Progressive Rock,60,40,heavy
+Deadcrush,alt-J,Indie Rock,55,50,heavy
+Fitzpleasure,alt-J,Indie Rock,60,45,heavy
+Cherry,Jungle,Funk,65,70,groovy
+Bookoo Bread Co,Scallops Hotel,Hip-Hop,55,50,heavy
+Make It Wit Chu,Queens of the Stone Age,Rock,65,60,groovy
+Daffodils (feat. Kevin Parker),"Mark Ronson, Kevin Parker",Disco/Funk,70,75,party mode
+Turnin' Me Up,BJ The Chicago Kid,R&B,55,65,groovy
+Power Trip (feat. Miguel),"J. Cole, Miguel",Hip-Hop/R&B,65,65,groovy
+NO HALO,BROCKHAMPTON,Hip-Hop,65,55,heavy
+welcome to chili's,99 Neighbors,Hip-Hop,60,55,heavy
+К окраинам,Рушана,Russian Indie,50,50,heavy
+Jiggy,"Victor Niglio, Mr. Man",Dance,80,65,party mode
+El Melouk,"Ahmed Saad, Zenba, Double Zuksh",Arabic Pop,70,60,party mode
+Ensalada (feat. Anderson .Paak),"Freddie Gibbs, The Alchemist, Anderson .Paak",Hip-Hop,70,60,party mode
+Chains & Whips,"Clipse, Kendrick Lamar",Hip-Hop,70,50,heavy
+So Be It,"Clipse, Pusha T, Malice",Hip-Hop,65,50,heavy
+Intergalactic Janet,Ley Soul,Funk,65,75,groovy
+Didn't Cha Know,Erykah Badu,Neo-Soul,50,65,groovy
+Selene,Night Tapes,Dream Pop,45,60,mellow
+Humans,Night Tapes,Dream Pop,50,55,mellow
+Mahal,Glass Beams,Psychedelic Jazz,55,65,groovy
+Not Like Us,Kendrick Lamar,Hip-Hop,80,55,heavy
+Cilvia Demo,Isaiah Rashad,Hip-Hop,55,50,heavy
+Trust,Jordan Rakei,Soul,50,65,groovy
+KARMA,"SiR, Isaiah Rashad",Hip-Hop,60,55,heavy
+Envious,SAULT,R&B,60,65,groovy
+Self,Cleo Sol,Soul,45,70,mellow
+Wildfires,SAULT,R&B,55,65,groovy
+Summer Sun,Common Saints,Psychedelic,50,60,mellow
+Nightrider,"Tom Misch, Yussef Dayes",Jazz Fusion,55,60,groovy
+Lonely Soul,"UNKLE, Richard Ashcroft",Trip-Hop,50,40,heavy
+Smooth Sailing,Queens of the Stone Age,Rock,60,55,heavy
+Ditch,Empara Mi,Alt-Pop,50,45,heavy
+Forever Lost,"The Polish Ambassador, Lafa Taylor",Electronic Hip-Hop,60,60,groovy
+Brnt,"Magic City Hippies, The EMEFE Horns",Funk,65,70,groovy
+Destruction,Joywave,Indie Rock,65,50,heavy
+Garden,Papadosio,Jam Band,55,60,groovy
+Chapter 7 (feat. Ty),"Ezra Collective, Ty",Jazz/Funk,60,65,groovy
+BDE Bonus,Mac Miller,Hip-Hop,60,55,heavy
+All Apologies,JMSN,R&B,45,50,heavy
+Cherry Pop,JMSN,R&B,50,60,mellow
+Talk Is Cheap,JMSN,R&B,50,45,heavy
+Be Sweet,Japanese Breakfast,Indie Pop,60,75,groovy
+Clouds & Cream,Sticky Fingers,Indie Rock,60,65,groovy
+The Cold Wind,Greta Van Fleet,Rock,70,50,heavy
+Angels / Your Love,"Mr Jukes, BJ The Chicago Kid",Funk,60,70,groovy
+Your Woman,White Town,Synth-Pop,55,55,heavy
+Discard Your Fear,Riverside,Progressive Rock,65,50,heavy
+The Final Thing On My Mind,The Pineapple Thief,Progressive Rock,60,45,heavy
+Oh Lorraine,The Temperance Movement,Blues Rock,60,55,heavy
+Ariah Being,Kiev,Indie Rock,55,55,heavy
+Cakey,Kyle Gass Band,Rock,65,60,groovy
+Telepathic,Rose Hill Drive,Rock,60,55,heavy
+Ribbon On A Branch,Younger Brother,Psytrance,50,60,mellow
+Gold,Chet Faker,Electro-Soul,50,60,mellow
+Undertow,Chroma Key,Ambient,45,40,heavy
+The Chain - 2004 Remaster,Fleetwood Mac,Classic Rock,65,60,groovy
+Wolves And Doors,Finger Eleven,Alternative Rock,65,50,heavy
+Hostage,Nothing But Thieves,Alternative Rock,70,40,heavy
+Roundabout - 2003 Remaster,Yes,Progressive Rock,70,60,party mode
+Make Luv - Live,"Room 5, Oliver Cheatham",Disco,70,75,party mode
+Hailin From The Edge,Apparat,Electronic,55,45,heavy
+Nobody Speak (feat. Run the Jewels),"DJ Shadow, Run The Jewels",Hip-Hop,70,50,heavy
+Out of the Black,Royal Blood,Rock,70,45,heavy
+Days Are Forgotten,Kasabian,Rock,65,50,heavy
+Processed Beats,Kasabian,Rock,60,55,heavy
+Short Change Hero,The Heavy,Blues Rock,55,45,heavy
+Move With The Season,Temples,Psychedelic Rock,60,55,heavy
+New Day,Karnivool,Progressive Metal,70,40,heavy
+Have A Cigar - 2011 Remastered Version,Pink Floyd,Classic Rock,65,50,heavy
+Fragments of Time (feat. Todd Edwards),"Daft Punk, Todd Edwards",House/Funk,70,75,party mode
+Little Black Submarines - Radio Edit,The Black Keys,Blues Rock,60,40,heavy
+Alors on danse - Radio Edit,Stromae,Dance/Pop,70,70,party mode
+Makeba,Jain,World Pop,65,75,groovy
+Aquemini,Outkast,Hip-Hop,65,60,groovy
+Get Ur Freak On,Missy Elliott,Hip-Hop,80,65,party mode
+Milkshake,Kelis,R&B/Pop,70,65,party mode
+The Next Episode,"Dr. Dre, Snoop Dogg",Hip-Hop,75,60,party mode
+Lauren,Men I Trust,Dream Pop,45,55,mellow
+Runaway - Remastered 2006,Jamiroquai,Acid Jazz,65,75,groovy
+Cosmic Girl - Remastered 2013,Jamiroquai,Funk,70,75,party mode
+Alright,Kendrick Lamar,Hip-Hop,70,65,party mode
+The Way You Move (feat. Sleepy Brown),"Outkast, Sleepy Brown",Funk/Hip-Hop,70,70,party mode
+Hey Ya!,Outkast,Pop/Hip-Hop,80,80,party mode
+Baby Got Back,Sir Mix-A-Lot,Hip-Hop,75,70,party mode
+Money Trees,"Kendrick Lamar, Jay Rock",Hip-Hop,65,55,heavy
+i,Kendrick Lamar,Hip-Hop,65,70,groovy
+Bitch, Don't Kill My Vibe,Kendrick Lamar,Hip-Hop,60,55,heavy
+Them Changes,Thundercat,Funk,60,65,groovy
+Lost In Yesterday,Tame Impala,Psychedelic Pop,65,60,groovy
+Feels Like Summer,Childish Gambino,R&B,60,60,groovy
+The Seed (2.0),"The Roots, Cody Chesnutt",Hip-Hop,65,65,groovy
+Tailwhip,Men I Trust,Dream Pop,50,60,mellow
+Rebirth Of Slick (Cool Like Dat),Digable Planets,Jazz Rap,60,65,groovy
+BULLFROG,Doechii,Hip-Hop,70,60,party mode
+CATFISH,Doechii,Hip-Hop,70,55,heavy`;
+
+  // Parse CSV data
+  const lines = csvData.trim().split('\n');
+  const headers = lines[0].split(',');
+  
+  return lines.slice(1).map(line => {
+    const values = line.split(',');
+    const song = {};
+    
+    headers.forEach((header, index) => {
+      let value = values[index];
+      // Handle quoted values (like artist names with commas)
+      if (value && value.startsWith('"') && value.endsWith('"')) {
+        value = value.slice(1, -1);
+      }
+      
+      if (header === 'energy' || header === 'mood') {
+        song[header] = parseInt(value);
+      } else {
+        song[header] = value;
+      }
+    });
+    
+    return song;
+  });
+};
 
 // --- Helper functions ---
 const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
@@ -901,28 +202,43 @@ function flowScores(ordered, genrePenalty){
   return scores.map(s => (s - min) / range);
 }
 
-// Dynamic color function based on mood and energy buckets
-const getSongColor = (mood, energy) => {
-  // Assign colors based on energy/mood combinations
-  if (energy < 30) {
-    return "#eab308"; // Yellow - Mellow (low energy)
-  } else if (energy < 60) {
-    return "#22c55e"; // Green - Groovy (medium energy)
-  } else if (energy < 80) {
-    return "#a855f7"; // Purple - Party Mode (high energy)
-  } else {
-    return "#ef4444"; // Red - Aggressive (very high energy)
+// Dynamic color function based on category
+const getSongColor = (category) => {
+  switch (category) {
+    case 'mellow':
+      return "#eab308"; // Yellow
+    case 'groovy':
+      return "#22c55e"; // Green
+    case 'party mode':
+      return "#a855f7"; // Purple
+    case 'heavy':
+      return "#ef4444"; // Red
+    default:
+      return "#6b7280"; // Gray for unknown categories
   }
 };
 
 export default function App(){
-  const [allSongs] = useState(seedSongs.map((d,i)=>({...d, idx:i+1})));
+  const [allSongs] = useState(loadSongData().map((d,i)=>({...d, idx:i+1})));
   const [points, setPoints] = useState([...allSongs]);
+
+  // Filter songs by category
+  const filteredSongs = useMemo(() => {
+    if (categoryFilter === "all") return allSongs;
+    return allSongs.filter(song => song.category === categoryFilter);
+  }, [allSongs, categoryFilter]);
+
+  // Update points when filter changes
+  useEffect(() => {
+    setPoints([...filteredSongs]);
+    setStartIdx(0); // Reset start index when filter changes
+  }, [filteredSongs]);
   const [genrePenalty, setGenrePenalty] = useState(8);
   const [startIdx, setStartIdx] = useState(0);
   const [orderForHeatmap, setOrderForHeatmap] = useState("manual");
   const [playlistLen, setPlaylistLen] = useState(20);
   const [isDark, setIsDark] = useState(false);
+  const [categoryFilter, setCategoryFilter] = useState("all");
 
   // Initialize theme from localStorage or system preference
   useEffect(() => {
@@ -993,7 +309,8 @@ export default function App(){
       order: i + 1,
       title: song.title,
       artist: song.artist,
-      color: getSongColor(song.mood, song.energy) // All songs get colors based on their energy/mood
+      category: song.category,
+      color: getSongColor(song.category) // All songs get colors based on their category
     }));
   }, [manual, suggested, orderForHeatmap, playlistLen, startIdx]);
 
@@ -1009,7 +326,7 @@ export default function App(){
       filename = "genre-optimized-playlist-order.txt";
     }
     
-    const text = list.map((s, i) => `${i + 1}. ${s.title} — ${s.artist} (${s.genre})`).join("\n");
+    const text = list.map((s, i) => `${i + 1}. ${s.title} — ${s.artist} (${s.genre}) [${s.category}]`).join("\n");
     const blob = new Blob([text], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a"); a.href = url; a.download = filename; a.click(); URL.revokeObjectURL(url);
@@ -1017,7 +334,7 @@ export default function App(){
 
   const reset = () => {
     setPoints([...allSongs]);
-    setGenrePenalty(8); setStartIdx(0); setOrderForHeatmap('manual'); setPlaylistLen(20);
+    setGenrePenalty(8); setStartIdx(0); setOrderForHeatmap('manual'); setPlaylistLen(20); setCategoryFilter('all');
   };
 
   const move = (i, dir) => {
@@ -1058,8 +375,17 @@ export default function App(){
               </div>
             </div>
             <div>
-              <label className="text-sm text-muted-foreground">Start track</label>
-              <Input type="number" min={1} max={points.length} value={startIdx+1} onChange={(e)=>setStartIdx(clamp(Number(e.target.value)-1,0,points.length-1))} />
+              <label className="text-sm text-muted-foreground">Category filter</label>
+              <Select value={categoryFilter} onValueChange={setCategoryFilter}>
+                <SelectTrigger><SelectValue/></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Categories</SelectItem>
+                  <SelectItem value="mellow">Mellow</SelectItem>
+                  <SelectItem value="groovy">Groovy</SelectItem>
+                  <SelectItem value="party mode">Party Mode</SelectItem>
+                  <SelectItem value="heavy">Heavy</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
             <div>
               <label className="text-sm text-muted-foreground">Heatmap evaluates</label>
@@ -1093,30 +419,40 @@ export default function App(){
                 <Tooltip content={({ active, payload }) => {
                   if (!active || !payload?.length) return null;
                   const p = payload[0].payload;
-                  return <div className="bg-popover text-popover-foreground p-2 rounded-none border border-border shadow-md">{p.order}. {p.title} — {p.artist}</div>;
+                  return <div className="bg-popover text-popover-foreground p-2 rounded-none border border-border shadow-md">
+                    <div className="font-semibold">{p.order}. {p.title}</div>
+                    <div className="text-sm">{p.artist}</div>
+                    <div className="text-xs text-muted-foreground mt-1">Category: {p.category}</div>
+                  </div>;
                 }} />
                 <Scatter data={vizData}>{vizData.map((d,i)=>(<Cell key={i} fill={d.color}/>))}</Scatter>
               </ScatterChart>
             </ResponsiveContainer>
           </div>
           
-          {/* Color Legend - Moved outside chart container */}
-          <div className="flex flex-wrap gap-4 text-sm mb-4">
-            <div className="flex items-center gap-2">
-              <div className="w-4 h-4 rounded-full bg-yellow-500"></div>
-              <span className="text-muted-foreground">Mellow</span>
+          {/* Color Legend and Category Stats */}
+          <div className="flex flex-wrap gap-6 text-sm mb-4">
+            <div className="flex flex-wrap gap-4">
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 rounded-full bg-yellow-500"></div>
+                <span className="text-muted-foreground">Mellow</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 rounded-full bg-green-500"></div>
+                <span className="text-muted-foreground">Groovy</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 rounded-full bg-purple-500"></div>
+                <span className="text-muted-foreground">Party Mode</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 rounded-full bg-red-500"></div>
+                <span className="text-muted-foreground">Heavy</span>
+              </div>
             </div>
-            <div className="flex items-center gap-2">
-              <div className="w-4 h-4 rounded-full bg-green-500"></div>
-              <span className="text-muted-foreground">Groovy</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-4 h-4 rounded-full bg-purple-500"></div>
-              <span className="text-muted-foreground">Party Mode</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-4 h-4 rounded-full bg-red-500"></div>
-              <span className="text-muted-foreground">Aggressive</span>
+            <div className="text-xs text-muted-foreground">
+              Showing {points.length} of {allSongs.length} songs
+              {categoryFilter !== 'all' && ` (${categoryFilter} only)`}
             </div>
           </div>
 
@@ -1129,7 +465,10 @@ export default function App(){
             <TabsContent value="order" className="mt-4">
               {manual.map((p,i)=>(
                 <div key={i} className="flex justify-between items-center bg-card p-2 mb-1 rounded-none shadow-sm border border-border hover:shadow-md transition-shadow duration-200">
-                  <div className="text-card-foreground">{i+1}. {p.title} — {p.artist}</div>
+                  <div className="text-card-foreground">
+                    <div>{i+1}. {p.title} — {p.artist}</div>
+                    <div className="text-xs text-muted-foreground">{p.genre} • {p.category}</div>
+                  </div>
                   <div className="flex gap-1">
                     <Button size="icon" onClick={()=>move(i,-1)}><ArrowUp className="h-4 w-4"/></Button>
                     <Button size="icon" onClick={()=>move(i,1)}><ArrowDown className="h-4 w-4"/></Button>
@@ -1143,14 +482,19 @@ export default function App(){
               </div>
               {manualOptimized.map((p,i)=>(
                 <div key={i} className="flex justify-between items-center bg-accent/10 p-2 mb-1 rounded-none shadow-sm border border-accent/20 hover:shadow-md hover:bg-accent/20 transition-all duration-200">
-                  <div className="text-card-foreground">{i+1}. {p.title} — {p.artist}</div>
-                  <div className="text-xs text-muted-foreground">{p.genre}</div>
+                  <div className="text-card-foreground">
+                    <div>{i+1}. {p.title} — {p.artist}</div>
+                    <div className="text-xs text-muted-foreground">{p.genre} • {p.category}</div>
+                  </div>
                 </div>
               ))}
             </TabsContent>
             <TabsContent value="flow" className="mt-4">
               <ol className="space-y-1">
-                {suggested.map((s)=>(<li key={s.title} className="text-card-foreground">{s.order}. {s.title} — {s.artist}</li>))}
+                {suggested.map((s)=>(<li key={s.title} className="text-card-foreground">
+                  <div>{s.order}. {s.title} — {s.artist}</div>
+                  <div className="text-xs text-muted-foreground ml-4">{s.genre} • {s.category}</div>
+                </li>))}
               </ol>
             </TabsContent>
           </Tabs>
